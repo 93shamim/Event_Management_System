@@ -1,0 +1,79 @@
+
+.bg-primary {
+    background-color: #3498db !important;
+}
+
+        /* Main content adjustments */
+        #content {
+            /* padding: 20px; */
+            transition: all 0.3s;
+        }
+
+        .navbar {
+            height: 60px;
+            transition: all 0.3s;
+        }
+        .nav-link {
+            font-size: 1.0rem;
+            font-weight: bold;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+
+        /* Profile Icon Styles */
+        .profile-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+
+        /* Search Bar Styles */
+        .search-bar {
+            width: 300px;
+        }
+
+        /* Branding styles */
+        .brand-logo {
+            text-align: center;
+            padding: 15px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc; /* Optional border */
+        }
+
+
+/* top nav user name and photo button customized */
+        .btn-outline-secondary {
+            color: #ffffff;
+            --bs-btn-border-color: none;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #16a586;
+            --bs-btn-hover-border-color: primary;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #16a586;;
+            --bs-btn-active-border-color: #fff;
+
+        }
+        .dropdown-menu {
+        --bs-dropdown-link-hover-bg: #16a586;
+        --bs-dropdown-link-hover-color:  #fff;
+        }
+
+
+
+
+
+        /* Active Link */
+        .active-link {
+            font-weight: bold;
+            color: #007bff !important;
+            text-decoration: underline;
+        }
+            /* Override styles specifically for the logout button */
+            form button.dropdown-item.text-danger {
+                font-weight: normal; /* Change font weight to normal */
+                font-size: 16px;
+                color: red !important; /* Ensure it's red */
+                text-decoration: none; /* Remove underline */
+                background-color: transparent; /* Remove background color */
+            }

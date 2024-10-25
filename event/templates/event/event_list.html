@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table{ text-wrap: nowrap;}
+    thead { background-color: #007bff; color: aliceblue; }
+    /* tbody td, thead th {border-bottom: 1px solid #c3c2c2;} */
+</style>
+    
+<h2>All Events</h2>
+
+
+<!-- <form method="GET">
+    <input type="text" name="q" placeholder="Search events..." value="{{ request.GET.q }}">
+    <button type="submit">Search</button>
+</form> -->
+
+<table id="EventsTable" class="table table-striped ">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Capacity</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Created At</th>
+            <th>Creator</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.category }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.location }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.capacity }}</td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
+                <td>{{ event.created_at }}</td>
+                <td>{{ event.creator.username }}</td>
+                <td>
+                    <a href="{% url 'update_event' event.id %}">Update</a>
+                    <a href="{% url 'delete_event' event.id %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+  <!-- FixedColumns JS -->
+  <script src="https://cdn.datatables.net/fixedcolumns/4.0.3/js/dataTables.fixedColumns.min.js"></script>
+  
+  <!-- jQuery (required for DataTables) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <!-- DataTables Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+  <!-- JSZip for Excel export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#EventsTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true,
+            "scrollX": true,
+            "scrollY": "400px",
+            "scrollCollapse": true,
+            "fixedHeader": true,
+            "paginate": {
+                "previous": "Pre",
+                "next": "Next",
+            },
+
+
+
+        });
+    });
+</script>
+
+{% endblock %}

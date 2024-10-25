@@ -1,0 +1,51 @@
+<!-- registration/profile_update.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/form_style.css' %}">
+
+
+
+<div class="form-container">
+    <h2>Update Profile</h2>
+    <!-- <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form> -->
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+    
+        {{ form.username.label_tag }}({{ form.username.help_text }}) {{ form.username }}<br>
+        {{ form.first_name.label_tag }} {{ form.first_name }}<br>
+        {{ form.last_name.label_tag }} {{ form.last_name }}<br>
+        {{ form.email.label_tag }} {{ form.email }}<br>
+        {{ form.phone.label_tag }} {{ form.phone }}<br>
+    
+        <div class="form-group d-flex align-items-center">
+            <div style="flex-grow: 1;">
+                <label for="{{ form.photo.id_for_label }}">Profile Photo:</label>
+                <input type="file" name="photo" id="{{ form.photo.id_for_label }}" class="form-control" style="width: auto; display: inline-block;">
+            </div>
+            
+            <!-- If the user already has a photo, display it as a thumbnail -->
+            {% if user.photo %}
+                <div style="margin-left: 20px;">
+                    <img src="{{ user.photo.url }}" alt="Current Profile Photo" width="100px" height="100px" style="border: 3px solid #3498db;">
+                </div>
+            {% endif %}
+        </div>
+        
+    
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    
+</div>
+
+{% endblock %}
