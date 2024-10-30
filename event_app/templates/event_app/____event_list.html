@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+    table { text-wrap: nowrap; }
+    thead { background-color: #007bff; color: aliceblue; }
+    tbody td, thead th {border-bottom: 1px solid #dee2e6;}
+</style>
+
+<table id="EventsTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+            <th>Time Left</th>
+            <th>Available Seat</th>
+            <th>Book Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.id }}</td>
+            <td>{{ event.name }}</td>
+            <td>{{ event.category }}</td>
+            <td>{{ event.start_date_time }}</td>
+            <td>{{ event.get_duration }} H</td>
+            <td style="color: red;">{{ event.get_time_left }}</td>
+            <td>{{ event.get_available_seat }}</td>
+            <td>
+                {% if event.get_time_left == "Finished" %}
+                    Event Finished  
+                    {% if request.user.is_authenticated and event.is_booked %}
+                        <span class="bi bi-check2-circle" style="color: green;">You have completed</span>
+                    {% endif %}
+                {% elif event.is_fully_booked %}
+                    Fully Booked
+                    {% if request.user.is_authenticated and event.is_booked %}
+                        <span class="bi bi-check2-circle" style="color: green;">You Already Booked</span>
+                    {% endif %}
+                {% else %}
+                    Available
+                    {% if request.user.is_authenticated %}
+                        {% if not event.is_booked %}
+                            <a href="{% url 'book_event' event.id %}"><button>Book</button></a>
+                        {% else %}
+                            <span class="bi bi-check2-circle" style="color: green;">You Already Booked</span>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}"><button>Log in to book</button></a>
+                    {% endif %}
+                {% endif %}
+            </td>
+            
+            <td>
+                <!-- <a title="Details" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#eventModal{{ event.id }}"><i class="bi bi-info-circle"></i></a> -->
+                <a title="Details" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#eventModal{{ event.id }}">
+                    <i class="bi bi-info-circle"></i>
+                </a>
+                
+                {% if event.get_time_left == "Finished" %}
+                    {% if request.user.is_superuser %}
+                        <a title="Edit" class="btn btn-primary btn-sm" href="{% url 'update_event' event.id %}"><i class="bi bi-pencil-square"></i></a>
+                        <a title="Delete" class="btn btn-danger btn-sm" href="{% url 'delete_event' event.id %}"><i class="bi bi-trash"></i></a>
+                    {% endif %}
+                {% else %}
+                    {% if request.user == event.creator or request.user.is_superuser %}
+                        <a title="Edit" class="btn btn-primary btn-sm" href="{% url 'update_event' event.id %}"><i class="bi bi-pencil-square"></i></a>
+                        <a title="Delete" class="btn btn-danger btn-sm" href="{% url 'delete_event' event.id %}"><i class="bi bi-trash"></i></a>
+                    {% endif %}
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% include 'event_app/event_details.html' %}
+
+
+<script>
+    $(document).ready(function() {
+        $('#EventsTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "searching": true,
+            "order": [[ 0, "asc" ]],
+            "pageLength": 10,
+        });
+    });
+</script>
+
+{% endblock %}

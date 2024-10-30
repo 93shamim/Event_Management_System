@@ -1,0 +1,92 @@
+<!-- category_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Category List</h2>
+
+
+    <!-- Button trigger modal for Add Category -->
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+        + Add Category
+    </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.description }}</td>
+                    <td>
+                        <a title="Edit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editCategoryModal{{ category.id }}">
+                            <i class="bi bi-pencil-square"></i></a>
+                        <a title="Delete" class="btn btn-danger btn-sm" href="{% url 'delete_category' category.id %}"><i class="bi bi-trash"></i></a>                              
+                    </td>
+                </tr>
+
+                <!-- Edit Category Modal -->
+                <div class="modal fade" id="editCategoryModal{{ category.id }}" tabindex="-1" aria-labelledby="editCategoryModalLabel{{ category.id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editCategoryModalLabel{{ category.id }}">Edit Category</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="{% url 'edit_category' category.id %}">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="category-name" class="form-label">Category Name</label>
+                                        <input type="text" class="form-control" id="category-name" name="name" value="{{ category.name }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3">{{ category.description }}</textarea>
+                                    </div>
+                                        
+                                    <button type="submit" class="btn btn-primary">Update Category</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'add_category' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="category-name" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="category-name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

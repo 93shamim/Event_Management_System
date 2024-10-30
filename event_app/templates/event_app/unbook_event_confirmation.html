@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Confirm Unbooking</h2>
+    <p>Are you sure you want to unbook the event <strong>{{ booking.event.name }}</strong> on {{ booking.booking_date }} ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Unbook</button>
+        <a href="{% url 'booked_events' %}"  class="btn btn-secondary" style="margin-top: 10px;">No, Cancel</a>
+    </form>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Confirm Booking</h2>
+    <p>Are you sure you want to book the event: <strong>{{ event.name }}</strong> on {{ event.start_date_time }} ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Yes, Book</button>
+        <a href="{% url 'event_list' %}" class="btn btn-secondary" style="margin-top: 10px;">Cancel</a>
+    </form>
+</div>
+{% endblock %}

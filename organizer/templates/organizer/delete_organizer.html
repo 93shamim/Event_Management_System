@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Delete Organizer</h2>
+    <hr>    
+
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ organizer.name }}"?</p>
+        <button type="submit">Delete Organizer</button>
+        <a href="{% url 'organizer_list' %}" class="btn btn-secondary" style="margin-top: 10px;">No, Cancel</a>
+    </form>
+</div>
+{% endblock %}

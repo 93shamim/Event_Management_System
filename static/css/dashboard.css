@@ -1,0 +1,21 @@
+.dashboard-stats {
+    margin: 20px;
+}
+.stat {
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+    color: white; /* Default text color for better contrast */
+}
+.stat:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.stat h3 {
+    color: white; /* Ensure heading is visible */
+}
+.stat p {
+    font-size: 2rem;
+    font-weight: bold;
+}

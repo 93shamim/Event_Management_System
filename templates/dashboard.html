@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <style>
+    .dashboard-stats {
+        margin: 20px;
+    }
+    .stat {
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.2s;
+        color: white; /* Default text color for better contrast */
+    }
+    .stat:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .stat h3 {
+        color: white; /* Ensure heading is visible */
+    }
+    .stat p {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+</style> -->
+
+
+<div class="container">
+<h1 class="text-center my-4">Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="stat bg-success">
+            <h3>Total Events</h3>
+            <p>{{ total_events }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat bg-info">
+            <h3>My Booked Events</h3>
+            <p>{{ my_booked_events }}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat bg-primary">
+            <h3>Total Categories</h3>
+            <p>{{ total_categories }}</p>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="stat bg-secondary">
+            <h3>Total Organizers</h3>
+            <p>{{ total_organizers }}</p>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="stat bg-warning">
+            <h3>Ongoing Events</h3>
+            <p>{{ ongoing_events }}</p>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="stat bg-danger">
+            <h3>Finished Events</h3>
+            <p>{{ finished_events }}</p>
+        </div>
+    </div>
+    {% if user.is_superuser %}
+    <div class="col-md-4 mt-4">
+        <div class="stat bg-primary">
+            <h3>Total Users</h3>
+            <p>{{ total_users }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</div>
+
+
+{% endblock %}

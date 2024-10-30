@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>My Booked Events</h2>
+    <hr>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Event Name</th>
+                <th>Booking Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.event.id }}</td>
+                <td>{{ booking.event.name }}</td>
+                <td>{{ booking.booking_date }}</td>
+                <td style="color: red;">
+                    {% if booking.event.get_time_left == "Finished" %}
+                        Event Finished
+                    {% elif booking.event.get_time_left == "Ongoing" %}
+                        Ongoing
+                    {% else %}
+                        Time Left: {{ booking.event.get_time_left }}
+                    {% endif %}
+                </td>
+                <td style="display: flex; justify-content: space-around; align-items: center;">
+
+                    <a title="Details" class="btn btn-info btn-sm d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#eventModal{{ booking.event.id }}">
+                        <i class="bi bi-info-circle me-1"></i> Details</a>
+                        
+                    {% if booking.event.get_time_left == "Finished" %}
+                        <span class="text-danger ms-2">Event Finished</span>
+                    {% else %}
+                        <form action="{% url 'unbook_event' booking.id %}" method="POST" class="ms-2">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning btn-sm d-flex align-items-center" onclick="return confirm('Are you sure you want to unbook {{ booking.event.name }}?')">
+                                <i class="bi bi-x-circle me-1"></i> Unbook
+                            </button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+                <p>No events booked yet.</p>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'event_app/event_details.html' %}
+
+    <a href="{% url 'event_list' %}"  class="btn btn-secondary" style="margin-top: 10px;">Back to Events</a>
+
+
+{% endblock %}

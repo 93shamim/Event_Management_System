@@ -1,0 +1,81 @@
+<!-- Event Details popup window: -->
+{% for event in events %}
+    <div class="modal fade" id="eventModal{{ event.id }}"  tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">{{ event.name }} ({{ event.category }})</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <b>Description:</b><br>
+                    {{ event.description }}<br><hr>
+                    <b>Location:</b>
+                    {{ event.location }}<br>
+                    <b>Capacity:</b>
+                    {{ event.capacity }}<br>
+                    <b>Booked Seat:</b>
+                    {{ event.get_booked_seat }}<br>
+                    <b>Available Seat:</b>
+                    {{ event.get_available_seat }}<br><hr>  
+                    <b>Duration:</b>
+                    {{ event.get_duration }} H<br>
+                    <b>Start Date:</b>
+                    {{ event.start_date_time }}<br>
+                    <b>End Date:</b>
+                    {{ event.end_date_time }}<br><hr>
+                    <b>Organizer:</b>
+                    {{ event.organizer }}<br>
+                    <b>Creator:</b>
+                    {{ event.creator.username }}<br>
+                    <b>Created At:</b>
+                    {{ event.created_at }}
+                </div>
+
+                <div class="modal-footer">
+
+                    <h5 style="color: red; margin-right: 400px;">
+                        Left Time: {{ event.get_time_left }}
+                    </h5>
+        
+                    <div>
+                        <!-- {% if request.user.is_authenticated %}
+                            {% if event.is_booked %}
+                                <span class="bi bi-check2-circle" style="color: green;">Already Booked</span>
+                            {% else %}
+                                <a class="btn btn-primary" href="{% url 'book_event' event.id %}"><i class="bi bi-circle"></i> Book</a>
+                            {% endif %}
+                        {% else %}
+                            <a class="btn btn-primary" href="{% url 'login' %}"><i class="bi bi-circle"></i> Log in to book</a>
+                        {% endif %} -->
+                        
+                            {% if event.get_time_left == "Finished" %}
+                                Event Finished
+                                {% if request.user.is_authenticated and event.is_booked %}
+                                    <span class="bi bi-check2-circle" style="color: green;">You Already Booked</span>
+                                {% endif %}
+                            {% elif event.is_fully_booked %}
+                                Fully Booked
+                                {% if request.user.is_authenticated and event.is_booked %}
+                                    <span class="bi bi-check2-circle" style="color: green;">You Already Booked</span>
+                                {% endif %}
+                            {% else %}
+                                Available
+                                {% if request.user.is_authenticated %}
+                                    {% if not event.is_booked %}
+                                        <a href="{% url 'book_event' event.id %}"><button>Book</button></a>
+                                    {% else %}
+                                        <span class="bi bi-check2-circle" style="color: green;">You Already Booked</span>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{% url 'login' %}"><button>Log in to book</button></a>
+                                {% endif %}
+                            {% endif %}
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

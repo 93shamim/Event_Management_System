@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table { text-wrap: nowrap; }
+    thead { background-color: #007bff; color: aliceblue; }
+    tbody td, thead th {border-bottom: 1px solid #dee2e6;}
+</style>
+
+<!-- <div class="d-flex align-items-center">
+    <h2>All Events</h2>
+    <button class="btn btn-primary ml-auto" style="margin-left: 10px;">
+        <a class="nav-link" href="{% url 'create_event' %}">Create New Event</a>
+    </button>
+</div> -->
+
+<table id="EventsTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Description</th>
+            <th>Capacity</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Created At</th>
+            <th>Creator</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.category }}</td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.location }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.capacity }}</td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
+                <td>{{ event.created_at }}</td>
+                <td>{{ event.creator.username }}</td>
+                <td>
+                    {% if request.user == event.creator or request.user.is_superuser %}
+                    <a href="{% url 'update_event' event.id %}"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{% url 'delete_event' event.id %}"><i class="bi bi-trash"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#EventsTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "searching": true,
+            "order": [[ 0, "asc" ]],
+            "pageLength": 10,
+            
+        });
+    });
+</script>
+
+{% endblock %}

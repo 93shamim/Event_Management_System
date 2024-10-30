@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="#">EMS</a>
+
+
+        <!-- Navigation Links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'event_list' %}">Event List</a>
+            </li>
+            {% if user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'add_organizer' %}">Add Organizer</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create_event' %}">Create Event</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'booked_events' %}">My Booked Events</a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <!-- Search bar -->
+        <!-- <form class="d-flex me-auto">
+            <input class="form-control search-bar" type="search" placeholder="Search..." aria-label="Search">
+        </form> -->
+
+
+        <!-- Profile Icon and Dropdown -->
+        <div class="d-flex align-items-center">
+            {% if user.is_authenticated %}
+            <strong class="text-white" style="margin-right: 5px;">Welcome !</strong>
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center" href="#" role="button" id="dropdownUserMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if user.photo %}
+                            <!-- Show profile picture if exists -->
+                            <img src="{{ user.photo.url }}" alt="Profile Photo" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                        {% else %}
+                            <!-- Default icon if no profile picture -->
+                            <i class="bi bi-person-circle profile-icon me-2"></i>
+                        {% endif %}
+                        <strong>{{ user.first_name }}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUserMenu">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'profile_update' %}">
+                                <i class="bi bi-person"></i> Update Profile 
+                            </a>
+                        </li>
+                        <hr class="dropdown-divider">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'change_password' %}">
+                                <i class="bi bi-person"></i> Change Password
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            {% else %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
