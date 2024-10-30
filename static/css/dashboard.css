@@ -15,7 +15,15 @@
 .stat h3 {
     color: white; /* Ensure heading is visible */
 }
-.stat p {
+/* .stat p {
     font-size: 2rem;
     font-weight: bold;
+    text-decoration: none;
+} */
+.stat a {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: color 0.2s;
 }

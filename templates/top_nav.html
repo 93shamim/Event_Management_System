@@ -7,11 +7,18 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'dashboard' %}">Dashboard</a>
+                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create_event' %}">Create Event</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'booked_events' %}">My Booked Events</a>
             </li>
             {% endif %}
             <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'event_list' %}">Event List</a>
+                <a class="nav-link" href="{% url 'event_list' %}">Event List</a>
             </li>
             {% if user.is_superuser %}
             <li class="nav-item">
@@ -19,15 +26,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_organizer' %}">Add Organizer</a>
-            </li>
-            {% endif %}
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'create_event' %}">Create Event</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'booked_events' %}">My Booked Events</a>
             </li>
             {% endif %}
         </ul>

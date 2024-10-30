@@ -34,44 +34,44 @@
     <div class="col-md-4">
         <div class="stat bg-success">
             <h3>Total Events</h3>
-            <p>{{ total_events }}</p>
+            <a href="{% url 'event_list' %}">{{ total_events }}</a>
         </div>
     </div>
     <div class="col-md-4">
         <div class="stat bg-info">
             <h3>My Booked Events</h3>
-            <p>{{ my_booked_events }}</p>
+            <a href="{% url 'booked_events' %}">{{ my_booked_events }}</a>
         </div>
     </div>
     <div class="col-md-4">
         <div class="stat bg-primary">
             <h3>Total Categories</h3>
-            <p>{{ total_categories }}</p>
+            <a href="{% url 'category_list' %}">{{ total_categories }}</a>
         </div>
     </div>
     <div class="col-md-4 mt-4">
         <div class="stat bg-secondary">
             <h3>Total Organizers</h3>
-            <p>{{ total_organizers }}</p>
+            <a href="{% url 'organizer_list' %}">{{ total_organizers }}</a>
         </div>
     </div>
     <div class="col-md-4 mt-4">
         <div class="stat bg-warning">
             <h3>Ongoing Events</h3>
-            <p>{{ ongoing_events }}</p>
+            <a href="#">{{ ongoing_events }}</a>
         </div>
     </div>
     <div class="col-md-4 mt-4">
         <div class="stat bg-danger">
             <h3>Finished Events</h3>
-            <p>{{ finished_events }}</p>
+            <a href="#">{{ finished_events }}</a>
         </div>
     </div>
     {% if user.is_superuser %}
     <div class="col-md-4 mt-4">
         <div class="stat bg-primary">
             <h3>Total Users</h3>
-            <p>{{ total_users }}</p>
+            <a>{{ total_users }}</a>
         </div>
     </div>
     {% endif %}
