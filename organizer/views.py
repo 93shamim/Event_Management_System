@@ -6,15 +6,18 @@ from django.contrib.auth.decorators import login_required
 from .models import Organizer
 from .forms import OrganizerForm
 from django.utils.safestring import mark_safe
+from django.contrib.auth.decorators import user_passes_test
 
 
 # Organizer views
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def organizer_list(request):
     organizers = Organizer.objects.all()
     return render(request, 'organizer/organizer_list.html', {'organizers': organizers})
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_organizer(request):
     if request.method == 'POST':
         form = OrganizerForm(request.POST)
@@ -29,6 +32,7 @@ def add_organizer(request):
     return redirect('organizer_list')  
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def edit_organizer(request, organizer_id):
     organizer = get_object_or_404(Organizer, id=organizer_id)
     if request.method == 'POST':
@@ -43,6 +47,7 @@ def edit_organizer(request, organizer_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_organizer(request, organizer_id):
     organizer = get_object_or_404(Organizer, pk=organizer_id)
 

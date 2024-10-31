@@ -27,10 +27,6 @@
             margin-right: 20px;
         }
 
-        /* Search Bar Styles */
-        .search-bar {
-            width: 300px;
-        }
 
         /* Branding styles */
         .brand-logo {
@@ -77,3 +73,10 @@
                 text-decoration: none; /* Remove underline */
                 background-color: transparent; /* Remove background color */
             }
+
+
+            
+/* For All Table(event list, category list organizer list) */
+            table { text-wrap: nowrap; }
+            thead { background-color: #007bff; color: aliceblue; }
+            tbody td, thead th {border-bottom: 1px solid #dee2e6;}

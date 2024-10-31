@@ -39,16 +39,6 @@
                     </h5>
         
                     <div>
-                        <!-- {% if request.user.is_authenticated %}
-                            {% if event.is_booked %}
-                                <span class="bi bi-check2-circle" style="color: green;">Already Booked</span>
-                            {% else %}
-                                <a class="btn btn-primary" href="{% url 'book_event' event.id %}"><i class="bi bi-circle"></i> Book</a>
-                            {% endif %}
-                        {% else %}
-                            <a class="btn btn-primary" href="{% url 'login' %}"><i class="bi bi-circle"></i> Log in to book</a>
-                        {% endif %} -->
-                        
                             {% if event.get_time_left == "Finished" %}
                                 Event Finished
                                 {% if request.user.is_authenticated and event.is_booked %}
@@ -71,11 +61,11 @@
                                     <a href="{% url 'login' %}"><button>Log in to book</button></a>
                                 {% endif %}
                             {% endif %}
-                        
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
+
 {% endfor %}

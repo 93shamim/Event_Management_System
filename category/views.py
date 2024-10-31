@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 from .models import Category
 from .forms import CategoryForm
@@ -10,12 +10,14 @@ from django.utils.safestring import mark_safe
 
 
 # Category views
-@login_required
+@login_required 
+@user_passes_test(lambda u: u.is_superuser)
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category/category_list.html', {'categories': categories})
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -30,6 +32,7 @@ def add_category(request):
     return redirect('category_list')  
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def edit_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     if request.method == 'POST':
@@ -44,6 +47,7 @@ def edit_category(request, category_id):
 
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_category(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
 

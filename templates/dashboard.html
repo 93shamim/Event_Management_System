@@ -2,35 +2,12 @@
 
 {% block content %}
 
-<!-- <style>
-    .dashboard-stats {
-        margin: 20px;
-    }
-    .stat {
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        transition: transform 0.2s;
-        color: white; /* Default text color for better contrast */
-    }
-    .stat:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .stat h3 {
-        color: white; /* Ensure heading is visible */
-    }
-    .stat p {
-        font-size: 2rem;
-        font-weight: bold;
-    }
-</style> -->
-
 
 <div class="container">
 <h1 class="text-center my-4">Dashboard</h1>
 
 <div class="row">
+
     <div class="col-md-4">
         <div class="stat bg-success">
             <h3>Total Events</h3>
@@ -44,6 +21,26 @@
         </div>
     </div>
     <div class="col-md-4">
+        <div class="stat bg-warning">
+            <h3>Ongoing Events</h3>
+            <a href="{% url 'event_list' %}#ActiveEventsTable">{{ ongoing_events }}</a>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="stat bg-warning">
+            <h3>Events Start Soon</h3>
+            <a href="{% url 'event_list' %}#ActiveEventsTable">{{ start_soon_events }}</a>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="stat bg-danger">
+            <h3>Finished Events</h3>
+            <a href="{% url 'event_list' %}#FinishedEventsTable">{{ finished_events }}</a>
+        </div>
+    </div>
+
+    {% if user.is_superuser %}
+    <div class="col-md-4 mt-4">
         <div class="stat bg-primary">
             <h3>Total Categories</h3>
             <a href="{% url 'category_list' %}">{{ total_categories }}</a>
@@ -56,25 +53,13 @@
         </div>
     </div>
     <div class="col-md-4 mt-4">
-        <div class="stat bg-warning">
-            <h3>Ongoing Events</h3>
-            <a href="#">{{ ongoing_events }}</a>
-        </div>
-    </div>
-    <div class="col-md-4 mt-4">
-        <div class="stat bg-danger">
-            <h3>Finished Events</h3>
-            <a href="#">{{ finished_events }}</a>
-        </div>
-    </div>
-    {% if user.is_superuser %}
-    <div class="col-md-4 mt-4">
         <div class="stat bg-primary">
             <h3>Total Users</h3>
-            <a>{{ total_users }}</a>
+            <a href="{% url 'register_user_list' %}">{{ total_users }}</a>
         </div>
     </div>
     {% endif %}
+
 </div>
 </div>
 

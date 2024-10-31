@@ -11,5 +11,8 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('profile_update/', profile_update, name='profile_update'),
     path('change-password/', change_password, name='change_password'),
+    path('register_user_list/', register_user_list, name='register_user_list'),
+    path('toggle_user_status/', toggle_user_status, name='toggle_user_status'),
+
 ]
 

@@ -9,6 +9,7 @@ from .forms import CustomUserCreationForm, CustomLoginForm, CustomProfileUpadteF
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .models import CustomUser
+from django.contrib.auth.decorators import user_passes_test
 
 
 
@@ -109,6 +110,13 @@ def profile_update(request):
     return render(request, 'registration/profile_update.html', {'form': form})
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def register_user_list(request):
+    users = CustomUser.objects.all()
+    return render(request, 'registration/register_user_list.html', {'users': users})
+
+
 
 @login_required
 def change_password(request):
@@ -123,3 +131,21 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
 
     return render(request, 'registration/change_password.html', {'form': form})
+
+
+
+# // for user status apply(active/deactive)
+
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+
+def toggle_user_status(request):
+    user_id = request.POST.get('user_id')
+    user = User.objects.get(id=user_id)
+    if user.is_active:
+        user.is_active = False
+    else:
+        user.is_active = True
+    user.save()
+    return JsonResponse({'success': True, 'status': user.is_active})
+

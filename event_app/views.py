@@ -19,6 +19,7 @@ def dashboard(request):
     total_categories = Category.objects.count() 
     total_organizers = Organizer.objects.count()
     ongoing_events = EventApp.objects.filter(start_date_time__lte=timezone.now(), end_date_time__gte=timezone.now()).count()  # Ongoing events
+    start_soon_events = EventApp.objects.filter(start_date_time__gte=timezone.now()).count()  # Start soon events
     finished_events = EventApp.objects.filter(end_date_time__lt=timezone.now()).count()  # Finished events
 
     if request.user.is_authenticated:
@@ -35,6 +36,7 @@ def dashboard(request):
         'total_categories': total_categories,
         'total_organizers': total_organizers,
         'ongoing_events': ongoing_events,
+        'start_soon_events': start_soon_events,
         'finished_events': finished_events,
     }
 

@@ -8,6 +8,7 @@ from django.conf import settings  # Import settings
 
 class CustomUser(AbstractUser):
     phone = models.CharField(max_length=15, blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
 
     def __str__(self):

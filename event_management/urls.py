@@ -26,8 +26,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('registration/', include('registration.urls')),
-    path('category/', include('category.urls')),
+    path('event/', include('category.urls')),
     path('event/', include('event_app.urls')),
-    path('organizer/', include('organizer.urls')),
+    path('event/', include('organizer.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
