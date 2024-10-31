@@ -80,3 +80,13 @@
             table { text-wrap: nowrap; }
             thead { background-color: #007bff; color: aliceblue; }
             tbody td, thead th {border-bottom: 1px solid #dee2e6;}
+
+
+
+/* For All Unbook Buttons Size apply */
+.unbook_button[type="submit"]
+ {
+    padding: 6px;
+    font-size: 13px;
+    margin-top: 0px;
+}

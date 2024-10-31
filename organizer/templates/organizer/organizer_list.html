@@ -4,8 +4,7 @@
 
 {% block content %}
 
-    <h2>Organizer List</h2>
-
+<div class="d-flex justify-content-between align-items-center">
 
     <!-- Button trigger modal for Add Organizer -->
      {% if user.is_superuser %}
@@ -13,7 +12,11 @@
         + Add Organizer
     </button>
     {% endif %}
+
+    <h2>Organizer List</h2>
+
     <hr>
+</div>
 
     <table class="table table-striped TableAttributes">
         <thead>

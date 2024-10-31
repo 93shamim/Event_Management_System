@@ -53,12 +53,12 @@
                                 Available
                                 {% if request.user.is_authenticated %}
                                     {% if not event.is_booked %}
-                                        <a href="{% url 'book_event' event.id %}"><button>Book</button></a>
+                                    <a href="{% url 'book_event' event.id %}" class="btn btn-primary">Book</a>
                                     {% else %}
                                         <span class="bi bi-check2-circle" style="color: green;">You Already Booked</span>
                                     {% endif %}
                                 {% else %}
-                                    <a href="{% url 'login' %}"><button>Log in to book</button></a>
+                                    <a href="{% url 'login' %}" onclick="alert('Please login to book this event');" class="btn btn-primary">Book</a>
                                 {% endif %}
                             {% endif %}
                     </div>

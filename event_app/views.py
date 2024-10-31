@@ -9,6 +9,7 @@ from django.utils import timezone
 import pytz
 from registration.models import CustomUser
 from organizer.models import Organizer
+from django.utils.safestring import mark_safe
 
 
 
@@ -194,7 +195,7 @@ def book_event(request, event_id):
 
     if request.method == "POST":
         if Booking.objects.filter(user=request.user, event=event).exists():
-            messages.error(request, "You have already booked this event.")
+            messages.error(request, mark_safe('<span style="color: green;">You have already booked this event</span>'))
         else:
             Booking.objects.create(user=request.user, event=event)
             messages.success(request, "Event booked successfully!")
@@ -215,13 +216,17 @@ def unbook_event(request, booking_id):
     return render(request, 'event_app/unbook_event_confirmation.html', {'booking': booking})
 
 
+# @login_required
+# def booked_events(request):
+#     bookings = Booking.objects.filter(user=request.user)
+#     return render(request, 'event_app/booked_events.html', {'bookings': bookings})
+
 @login_required
 def booked_events(request):
     bookings = Booking.objects.filter(user=request.user)
-
+    # Pass 'event' directly from the 'booking.event'
     context = {
         'events': [booking.event for booking in bookings],  # This ensures the template always gets 'event'
         'bookings': bookings,  # Only needed if you are using bookings separately
     }
     return render(request, 'event_app/booked_events.html', context)
-    # return render(request, 'event_app/booked_events.html', {'bookings': bookings})
